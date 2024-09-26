@@ -1,3 +1,27 @@
 html {
   scroll-behavior: smooth;
 }
+
+img {
+  width: 200px;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 15px;
+  width: 70%;
+  margin: 20px auto;
+}
+
+.card {
+  padding: 20px;
+  background-color: #FBFBFB;
+  border-radius: 4px;
+}
+
+h1,
+#new-product-form {
+  width: 70%;
+  margin: 30px auto 0;
+}
