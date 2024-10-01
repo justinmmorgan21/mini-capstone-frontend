@@ -12,7 +12,7 @@ export function ProductsShow({product, onUpdate, onDestroy}) {
       <p>${product.price}</p>
       <p>{product.description}</p>
       {product.images.map((image, id) => (
-              <div key="id">
+              <div key={image.id}>
                 <img src={image.url} />
               </div>
             ))}

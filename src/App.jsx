@@ -1,4 +1,5 @@
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
+import axios from 'axios'
 
 import { Header } from "./Header";
 import { ProductsPage } from "./ProductsPage";
@@ -6,6 +7,8 @@ import { Footer } from "./Footer";
 import { SignupPage } from "./SignupPage";
 import { LoginPage } from "./LoginPage";
 import { LogoutLink } from "./LogoutLink";
+import { ProductsIndexPage } from "./ProductsIndexPage";
+import { ProductsNewPage } from "./ProductsNewPage";
 
 const router = createBrowserRouter([
   {
@@ -30,6 +33,15 @@ const router = createBrowserRouter([
         path: "/login",
         element: <LoginPage />
       },
+      {
+        path: "/products/new",
+        element: <ProductsNewPage />
+      },
+      {
+        path: "/products",
+        element: <ProductsIndexPage />,
+        loader: () => axios.get("http://localhost:3000/products.json").then(response => response.data)
+      }
     ]
   }
 ])
