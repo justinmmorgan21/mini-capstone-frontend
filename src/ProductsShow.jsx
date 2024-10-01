@@ -7,11 +7,15 @@ export function ProductsShow({product, onUpdate, onDestroy}) {
   }
   
   return (
-    <div>
+    <div className="show-product-div">
       <h3>{product.name}</h3>
       <p>${product.price}</p>
       <p>{product.description}</p>
-      <img src={product.images[0] && product.images[0].url} />
+      {product.images.map((image, id) => (
+              <div key="id">
+                <img src={image.url} />
+              </div>
+            ))}
       <br /><br />
       <form onSubmit={handleSubmit}>
       <label htmlFor="name">Name: </label>
@@ -20,6 +24,8 @@ export function ProductsShow({product, onUpdate, onDestroy}) {
       <input type="text" name="price" defaultValue={product.price}/><br />
       <label htmlFor="description">Description: </label>
       <input type="text" name="description" defaultValue={product.description}/><br />
+      <label htmlFor='images[]'>Image Url: </label>
+      <input type="text" name="images[]"/><br />
       <button type="submit">Update</button>
       <br /><br />
       <button onClick={() => onDestroy(product.id)}>Delete</button>

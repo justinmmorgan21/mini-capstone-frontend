@@ -46,6 +46,7 @@ export function ProductsPage() {
   }
 
   const handleClose = () => {
+    console.log("CLose");
     setModalVisible(false);
   }
 
@@ -56,7 +57,7 @@ export function ProductsPage() {
       <ProductsNew onCreate={handleCreate}/>
       <ProductsIndex products={products} onShow={handleShow}/>
       <Modal onClose={handleClose} show={modalVisible}>
-        <ProductsShow 
+        <ProductsShow
           product={currentProduct} 
           onUpdate={handleUpdate}
           onDestroy={handleDestroy}

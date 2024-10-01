@@ -2,26 +2,21 @@ html {
   scroll-behavior: smooth;
 }
 
-img {
-  width: 200px;
+main {
+  width: 80%;
+  margin: 0 auto;
 }
 
 .cards {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 15px;
-  width: 70%;
-  margin: 20px auto;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
 }
 
-.card {
-  padding: 20px;
-  background-color: #FBFBFB;
-  border-radius: 4px;
+.show-product-div img {
+  width: 100px;
 }
 
-h1,
-#new-product-form {
-  width: 70%;
-  margin: 30px auto 0;
+img {
+  width: 200px;
 }
