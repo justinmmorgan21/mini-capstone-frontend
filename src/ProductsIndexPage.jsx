@@ -39,6 +39,13 @@ export function ProductsIndexPage() {
     )
   }
 
+  const handleCreateCartProduct = (params, successCallback) => {
+    // console.log("create carted product: " + params.product_id + ", " + params.quantity);
+    // axios.post("http://localhost:3000/carted_products.json", params).then(response=> {
+    //   console.log(response.data);
+    // });
+  }
+
   // const handleShow = (product) => {
   //   console.log("handleShow", product);
   //   navigate(`/products/${product.id}`);
@@ -52,6 +59,8 @@ export function ProductsIndexPage() {
           product={currentProduct} 
           onUpdate={handleUpdate}
           onDestroy={handleDestroy}
+          onCreate={handleCreateCartProduct}
+          onClose={handleClose}
           />
       </Modal>
     </div>

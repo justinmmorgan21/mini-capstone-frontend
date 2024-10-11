@@ -1,4 +1,5 @@
-export function ProductsShow({product, onUpdate, onDestroy}) {
+import axios from 'axios'
+export function ProductsShow({product, onUpdate, onDestroy, onCreate, onClose}) {
 
   const handleSubmit = event => {
     event.preventDefault();
@@ -6,6 +7,18 @@ export function ProductsShow({product, onUpdate, onDestroy}) {
     onUpdate(params, product.id, () => event.target.reset());
   }
   
+  const handleCreate = (event, product_id) => {
+    event.preventDefault();
+    const params = new FormData(event.target);
+    params.append('product_id', product_id);
+    console.log(params);
+    // onCreate(params, () => event.target.reset());
+    axios.post("http://localhost:3000/carted_products.json", params).then(response=> {
+      console.log(response.data);
+    });
+    onClose();
+  }
+
   return (
     <div className="show-product-div">
       <h3>{product.name}</h3>
@@ -18,18 +31,24 @@ export function ProductsShow({product, onUpdate, onDestroy}) {
             ))}
       <br /><br />
       <form onSubmit={handleSubmit}>
-      <label htmlFor="name">Name: </label>
-      <input type="text" name="name" defaultValue={product.name}/><br />
-      <label htmlFor="price">Price: </label>
-      <input type="text" name="price" defaultValue={product.price}/><br />
-      <label htmlFor="description">Description: </label>
-      <input type="text" name="description" defaultValue={product.description}/><br />
-      <label htmlFor='images[]'>Image Url: </label>
-      <input type="text" name="images[]"/><br />
-      <button type="submit">Update</button>
-      <br /><br />
-      <button onClick={() => onDestroy(product.id)}>Delete</button>
-    </form>
+        <label htmlFor="name">Name: </label>
+        <input type="text" name="name" defaultValue={product.name}/><br />
+        <label htmlFor="price">Price: </label>
+        <input type="text" name="price" defaultValue={product.price}/><br />
+        <label htmlFor="description">Description: </label>
+        <input type="text" name="description" defaultValue={product.description}/><br />
+        <label htmlFor='images[]'>Image Url: </label>
+        <input type="text" name="images[]"/><br />
+        <button type="submit">Update</button>
+        <br /><br />
+        <button onClick={() => onDestroy(product.id)}>Delete</button>
+      </form>
+
+      <form onSubmit={(event) => handleCreate(event, product.id)}>
+        <label htmlFor="quantity">Quantity: </label>
+        <input type="number" name="quantity" defaultValue="1"/>
+        <button type="submit">Add to cart</button>
+      </form>
     </div>
   );
 }

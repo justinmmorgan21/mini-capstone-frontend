@@ -1,4 +1,5 @@
 export function ProductsIndex({ products, onShow }) {
+  
   return (
     <div>
       <h1 id="all-products">All Products</h1>
