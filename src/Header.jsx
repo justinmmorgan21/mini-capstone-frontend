@@ -1,8 +1,19 @@
 import { Link } from "react-router-dom";
 import { LogoutLink } from "./LogoutLink";
+import { useState, useEffect } from 'react'
+import axios from 'axios'
 export function Header() {
 
+  const [currentUser, setCurrentUser] = useState({});
 
+  const getUser = () => {
+    axios.get("http://localhost:3000/users/current.json").then(response => {
+      setCurrentUser(response.data);
+      // console.log(response.data);
+    })
+  }
+
+  useEffect(getUser, []);
 
   let authLinks
   let welcomeUserMessage = <></>
@@ -17,7 +28,7 @@ export function Header() {
       <LogoutLink />
     )
     welcomeUserMessage = (
-      <span>Welcome, USER</span>
+      <span>Welcome, {currentUser.name}</span>
     )
   }
 
