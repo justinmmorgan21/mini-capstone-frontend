@@ -18,7 +18,7 @@ const router = createBrowserRouter([
     element: (
       <div>
         <Header />
-        <LogoutLink />
+        {/* <LogoutLink /> */}
         <Outlet />
         <Footer />
       </div>
