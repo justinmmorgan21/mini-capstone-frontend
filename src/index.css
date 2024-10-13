@@ -2,7 +2,7 @@ html {
   scroll-behavior: smooth;
 }
 
-main {
+body {
   width: 80%;
   margin: 0 auto;
 }
@@ -19,4 +19,13 @@ main {
 
 img {
   width: 200px;
+}
+
+header {
+  padding: 20px;
+  background-color: lightgray;
+}
+
+header a {
+  margin: 20px;
 }

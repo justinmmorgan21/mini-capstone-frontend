@@ -9,7 +9,6 @@ export function Header() {
   const getUser = () => {
     axios.get("http://localhost:3000/users/current.json").then(response => {
       setCurrentUser(response.data);
-      // console.log(response.data);
     })
   }
 

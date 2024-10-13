@@ -1,11 +1,17 @@
+import { useState } from 'react';
+
 export function ProductsIndex({ products, onShow }) {
   
+  const[searchTerms, setSearchTerms] = useState("");
+
   return (
     <div>
       <h1 id="all-products">All Products</h1>
+      <span>Search: <input type="text" value={searchTerms} onChange={(event)=>setSearchTerms(event.target.value)}/></span>
+
         <div className="cards">
         {
-        products.map( product => (
+        products.filter(product=>product.name.toLowerCase().includes(searchTerms.toLowerCase())).map( product => (
           <div className="card" key={product.id}>
             <h3>{product.name}</h3>
             <p>${product.price}</p>
