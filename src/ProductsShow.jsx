@@ -1,5 +1,5 @@
 import axios from 'axios'
-export function ProductsShow({product, onUpdate, onDestroy, onCreate, onClose}) {
+export function ProductsShow({product, onUpdate, onDestroy, onClose}) {
 
   const handleSubmit = event => {
     event.preventDefault();
@@ -12,7 +12,6 @@ export function ProductsShow({product, onUpdate, onDestroy, onCreate, onClose}) 
     const params = new FormData(event.target);
     params.append('product_id', product_id);
     console.log(params);
-    // onCreate(params, () => event.target.reset());
     axios.post("http://localhost:3000/carted_products.json", params).then(response=> {
       console.log(response.data);
     });

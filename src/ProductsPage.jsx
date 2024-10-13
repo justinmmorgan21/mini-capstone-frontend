@@ -46,6 +46,7 @@ export function ProductsPage() {
 
   return (
     <main>
+      <h1>Welcome to the Store!!!</h1>
       {/* <ProductsNew onCreate={handleCreate}/>
       <ProductsIndex products={products} onShow={handleShow}/> */}
       {/* <Modal onClose={handleClose} show={modalVisible}>

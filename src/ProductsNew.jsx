@@ -1,5 +1,5 @@
 import {useState} from 'react'
-export function ProductsNew(props) {
+export function ProductsNew({ onCreate }) {
 
   const [images, setImages] = useState(["", ""])
 
@@ -7,7 +7,7 @@ export function ProductsNew(props) {
     event.preventDefault();
     const params = new FormData(event.target);
     console.log(params);
-    props.onCreate(params, () => event.target.reset());
+    onCreate(params, () => event.target.reset());
   }
 
   const addImages = () => {

@@ -1,9 +1,21 @@
 import { useLoaderData, useNavigate } from "react-router-dom";
-import { useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import axios from 'axios';
 
 export function CartedProductsIndexPage() {
-  const carted_products = useLoaderData();
+  //const cartedProducts = useLoaderData();
+
+  const [cartedProducts, setCartedProducts] = useState([]);
+  const [total, setTotal] = useState(0);
+
+  const handleIndex = () => {
+    axios.get("http://localhost:3000/carted_products.json").then(response=> {
+      setCartedProducts(response.data.carted_products);
+      setTotal(response.data.total);
+    })
+  }
+
+  useEffect( handleIndex, [] );
 
   const navigate = useNavigate();
 
@@ -16,22 +28,21 @@ export function CartedProductsIndexPage() {
   const handleDestroy = id => {
     // event.preventDefault();
     axios.delete(`http://localhost:3000/carted_products/${id}.json`).then(response => {
-      console.log("removed");
+      setCartedProducts(cartedProducts.filter(cp => cp.id !== id));
+      setTotal(response.data.total)
       // response.data
     })
   }
 
-  const calcTotal = () => {
-    const subtotal = carted_products.reduce((acc,cp) => acc + cp.product.price * cp.quantity, 0);
-    return (subtotal * 1.09).toFixed(2);
-  }
-
   return (
     <div>
-      <h1 id="all-products">Shopping Cart</h1>
+    {
+      cartedProducts.message !== 'You must be logged in.' ?
+      <>
+        <h1 id="all-products">Shopping Cart</h1>
         <div className="cards">
         {
-          carted_products.map( cp => (
+          cartedProducts.map( cp => (
             <div className="card" key={cp.id}>
               <h3>{cp.product.name}</h3>
               <p>${cp.product.price}</p>
@@ -46,10 +57,14 @@ export function CartedProductsIndexPage() {
             </div>
           ))
         }
-      </div>
-      <hr />
-        <h3>Cart Total: ${calcTotal()}</h3>
+        </div>
+        <hr />
+        <h3>Cart Total: ${total}</h3>
         <button onClick={()=>purchase()}>Purchase</button>
+      </>
+      :
+      <h1>You must be logged in to see your cart</h1>
+    }
     </div>
   );
 }

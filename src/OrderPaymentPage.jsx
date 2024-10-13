@@ -4,8 +4,10 @@ import axios from 'axios';
 
 export function OrderPaymentPage() {
   const order = useLoaderData();
-  return (
+  return (  
     <div>
+      <h1 style={{textAlign: 'center'}}>Order Confirmed!</h1>
+      <h3>Checkout Receipt</h3>
       {
         order.carted_products.map( cp => (
           <div key={cp.id}>
@@ -20,7 +22,7 @@ export function OrderPaymentPage() {
       <h3>Subtotal: ${order.subtotal}</h3>
       <h3>Tax: ${order.tax}</h3>
       <hr />
-      <h2>Total Cost: ${order.total}</h2>
+      <h3>Total Cost: ${order.total}</h3>
     </div>
   );
 }

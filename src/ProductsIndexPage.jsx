@@ -33,23 +33,10 @@ export function ProductsIndexPage() {
   }
 
   const handleDestroy = (id) => {
-    console.log("destroy: " + id);
     axios.delete(`http://localhost:3000/products/${id}.json`).then( 
       // response => setProducts(products.filter(product => product.id !== id))
     )
   }
-
-  const handleCreateCartProduct = (params, successCallback) => {
-    // console.log("create carted product: " + params.product_id + ", " + params.quantity);
-    // axios.post("http://localhost:3000/carted_products.json", params).then(response=> {
-    //   console.log(response.data);
-    // });
-  }
-
-  // const handleShow = (product) => {
-  //   console.log("handleShow", product);
-  //   navigate(`/products/${product.id}`);
-  // };
 
   return (
     <div>
@@ -59,7 +46,6 @@ export function ProductsIndexPage() {
           product={currentProduct} 
           onUpdate={handleUpdate}
           onDestroy={handleDestroy}
-          onCreate={handleCreateCartProduct}
           onClose={handleClose}
           />
       </Modal>
