@@ -1,10 +1,10 @@
 import { useLoaderData, useNavigate } from "react-router-dom";
 import { useState, useEffect } from 'react'
 import axios from 'axios';
+import Stripe from 'stripe'
 
 export function CartedProductsIndexPage() {
-  //const cartedProducts = useLoaderData();
-
+  const stripe = Stripe(import.meta.env.VITE_APP_SECRET_KEY)
   const [cartedProducts, setCartedProducts] = useState([]);
   const [total, setTotal] = useState(0);
 
@@ -21,7 +21,29 @@ export function CartedProductsIndexPage() {
 
   const purchase = () => {
     axios.post("http://localhost:3000/orders.json").then(response => {
-      navigate(`/orders/${response.data.id}`,{state: {id: response.data.id}});
+      stripe.checkout.sessions.create({
+        mode: 'payment',
+        payment_method_types: [
+          'card',
+        ],
+        success_url: `http://localhost:5173/orders/${response.data.id}`,
+        cancel_url: `http://localhost:5173/${response.data.id}`,
+        line_items: [ // all arguments are required
+          {
+            price_data: {
+              unit_amount: response.data.total * 100,
+              currency: 'usd',
+              product_data: {
+                name: 'best shopping cart experience ever'
+              },
+            },
+            quantity: 1,
+          },
+        ],
+      }).then(session => {
+        console.log(session)
+        window.location.href = session.url
+      })
     })
   }
 
@@ -30,7 +52,6 @@ export function CartedProductsIndexPage() {
     axios.delete(`http://localhost:3000/carted_products/${id}.json`).then(response => {
       setCartedProducts(cartedProducts.filter(cp => cp.id !== id));
       setTotal(response.data.total)
-      // response.data
     })
   }
 
