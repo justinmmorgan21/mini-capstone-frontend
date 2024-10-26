@@ -1,9 +1,8 @@
 import { useState } from 'react';
 
 export function ProductsIndex({ products, onShow }) {
-  
+  console.log(products)
   const[searchTerms, setSearchTerms] = useState("");
-
   return (
     <div>
       <h1 id="all-products">All Products</h1>

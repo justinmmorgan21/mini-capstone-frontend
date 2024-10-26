@@ -1,4 +1,5 @@
-import {useState} from 'react'
+import {useEffect, useState} from 'react'
+import axios from 'axios'
 export function ProductsNew({ onCreate }) {
 
   const [images, setImages] = useState(["", ""])
@@ -14,6 +15,16 @@ export function ProductsNew({ onCreate }) {
     setImages([...images, ""])
   }
 
+  const loadSuppliers = () => {
+    axios.get("http://localhost:3000/suppliers.json").then(response => {
+      setSuppliers(response.data)
+      console.log(response.data)
+    })
+  }
+
+  const [suppliers, setSuppliers] = useState([])
+  useEffect(loadSuppliers, []);
+
   return (
     <>
     <h1>New Product</h1>
@@ -26,7 +37,11 @@ export function ProductsNew({ onCreate }) {
       <label htmlFor="description">Description: </label>
       <input type="text" name="description" /><br />
       <label htmlFor="supplier_id">Supplier: </label>
-      <input type="text" name="supplier_id" /><br />
+      <select name="supplier_id" id="supplier_id">
+        {suppliers.map(supplier => (
+          <option key={supplier.id} value={supplier.id}>{supplier.name}</option>
+        ))}
+      </select>
       {images.map((image, id) => (
         <div key={id} >
           <label htmlFor='images[]'>Image Url: </label>
