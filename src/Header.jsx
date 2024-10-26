@@ -34,7 +34,7 @@ export function Header() {
   return (
     <header>
       <nav>
-        <a href="#">Home</a> | <Link to="products">All Products</Link> | <Link to="products/new">New Product</Link> | <Link to="carted_products">Cart</Link> | <Link to="orders">Past Orders</Link> | {authLinks} | {welcomeUserMessage}
+        <a href="#">Home</a> | <Link to="products">All Products</Link> | <Link to="products/new">New Product</Link> | <Link to="carted">Cart</Link> | <Link to="saved">Saved</Link> | <Link to="orders">Past Orders</Link> | {authLinks} | {welcomeUserMessage}
       </nav>
     </header>
   )

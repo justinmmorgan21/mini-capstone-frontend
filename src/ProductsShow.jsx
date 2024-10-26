@@ -1,5 +1,5 @@
 import axios from 'axios'
-export function ProductsShow({product, onUpdate, onDestroy, onClose}) {
+export function ProductsShow({product, onUpdate, onSave, onDestroy, onClose}) {
 
   const handleSubmit = event => {
     event.preventDefault();
@@ -13,6 +13,15 @@ export function ProductsShow({product, onUpdate, onDestroy, onClose}) {
     params.append('product_id', product_id);
     console.log(params);
     axios.post("http://localhost:3000/carted_products.json", params).then(response=> {
+      console.log(response.data);
+    });
+    onClose();
+  }
+
+  const handleSave = (product_id) => {
+    const params = { product_id: product_id };
+    console.log(params);
+    axios.post("http://localhost:3000/saved_products.json", params).then(response=> {
       console.log(response.data);
     });
     onClose();
@@ -40,7 +49,6 @@ export function ProductsShow({product, onUpdate, onDestroy, onClose}) {
         <input type="text" name="images[]"/><br />
         <button type="submit">Update</button>
         <br /><br />
-        <button onClick={() => onDestroy(product.id)}>Delete</button>
       </form>
 
       <form onSubmit={(event) => handleCreate(event, product.id)}>
@@ -48,6 +56,10 @@ export function ProductsShow({product, onUpdate, onDestroy, onClose}) {
         <input type="number" name="quantity" defaultValue="1"/>
         <button type="submit">Add to cart</button>
       </form>
+      <br />
+
+        <button onClick={() => handleSave(product.id)}>Save for later</button>
+        <button onClick={() => onDestroy(product.id)}>Delete</button>
     </div>
   );
 }

@@ -32,6 +32,12 @@ export function ProductsIndexPage() {
     handleClose();
   }
 
+  const handleSaveForLater = (params) => {
+    axios.post(`http://localhost:3000/saved_products.json`, params).then(
+
+    )
+  }
+
   const handleDestroy = (id) => {
     axios.delete(`http://localhost:3000/products/${id}.json`).then( 
       // response => setProducts(products.filter(product => product.id !== id))
@@ -45,6 +51,7 @@ export function ProductsIndexPage() {
         <ProductsShow
           product={currentProduct} 
           onUpdate={handleUpdate}
+          onSave={handleSaveForLater}
           onDestroy={handleDestroy}
           onClose={handleClose}
           />
