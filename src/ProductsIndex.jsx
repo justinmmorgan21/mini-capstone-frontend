@@ -5,6 +5,7 @@ export function ProductsIndex({ products, onShow }) {
   const[searchTerms, setSearchTerms] = useState("");
   return (
     <div>
+      {/* <h1 style={{ position: 'fixed', top: 70, width: '100%', backgroundColor: 'white', zIndex: 1 }}>All Products</h1> */}
       <h1 id="all-products">All Products</h1>
       <span>Search: <input type="text" value={searchTerms} onChange={(event)=>setSearchTerms(event.target.value)}/></span>
 

@@ -3,16 +3,13 @@ import { useState, useEffect } from 'react'
 import axios from 'axios';
 
 export function SavedProductsIndexPage() {
-  //const cartedProducts = useLoaderData();
 
   const [savedProducts, setSavedProducts] = useState([]);
-  // const [total, setTotal] = useState(0);
 
   const handleIndex = () => {
     axios.get("http://localhost:3000/saved_products.json").then(response=> {
       console.log(response.data[0]);
       setSavedProducts(response.data);
-      // setTotal(response.data.total);
     })
   }
 
@@ -20,19 +17,22 @@ export function SavedProductsIndexPage() {
 
   const navigate = useNavigate();
 
-  const addToCart = () => {
-    axios.post("http://localhost:3000/orders.json").then(response => {
-      navigate(`/orders/${response.data.id}`,{state: {id: response.data.id}});
+  const handleDestroy = id => {
+    axios.delete(`http://localhost:3000/saved_products/${id}.json`).then(response => {
+      setSavedProducts(savedProducts.filter(sp => sp.id !== id));
     })
   }
 
-  const handleDestroy = id => {
-    // event.preventDefault();
-    axios.delete(`http://localhost:3000/saved_products/${id}.json`).then(response => {
-      setSavedProducts(savedProducts.filter(sp => sp.id !== id));
-      // setTotal(response.data.total)
-      // response.data
-    })
+  const addToCart = (event, savedProduct) => {
+    event.preventDefault();
+    const params = new FormData(event.target);
+    params.append('product_id', savedProduct.product.id);
+    console.log(params);
+    axios.post("http://localhost:3000/carted_products.json", params).then(response=> {
+      console.log(response.data);
+      handleDestroy(savedProduct.id);
+      navigate(`/carted`);
+    });
   }
 
   return (
@@ -53,15 +53,18 @@ export function SavedProductsIndexPage() {
                   <img src={image.url} />
                 </div>
               ))}
-              <span style={{marginRight:32}}>Quantity: {sp.quantity} </span>
+              <form onSubmit={(event) => addToCart(event, sp)}>
+                <label htmlFor="quantity"> quantity: </label>
+                <input type="number" name="quantity" defaultValue="1" style={{width:30}}/>
+                <button type="submit">Add to cart</button>
+              </form>
+              <br />
               <button onClick={()=>handleDestroy(sp.id)}>Remove</button>
-              <button onClick={()=>addToCart()}>Add To Cart</button>
             </div>
           ))
         }
         </div>
         <hr />
-        {/* <h3>Cart Total: ${total}</h3> */}
       </>
       :
       <h1>You must be logged in to see your cart</h1>

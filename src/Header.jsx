@@ -32,7 +32,7 @@ export function Header() {
   }
 
   return (
-    <header>
+    <header style={{ position: 'fixed', top: 0, width: '100%', backgroundColor: 'white', zIndex: 1 }}>
       <nav>
         <a href="#">Home</a> | <Link to="products">All Products</Link> | <Link to="products/new">New Product</Link> | <Link to="carted">Cart</Link> | <Link to="saved">Saved</Link> | <Link to="orders">Past Orders</Link> | {authLinks} | {welcomeUserMessage}
       </nav>

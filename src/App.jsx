@@ -62,8 +62,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/saved",
-        element: <SavedProductsIndexPage />,
-        loader: () => axios.get("http://localhost:3000/saved_products.json").then(response => response.data)
+        element: <SavedProductsIndexPage />
       }
     ]
   }
