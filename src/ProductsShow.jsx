@@ -1,5 +1,5 @@
 import axios from 'axios'
-export function ProductsShow({product, onUpdate, onSave, onDestroy, onClose}) {
+export function ProductsShow({product, onUpdate, onDestroy, onClose}) {
 
   const handleSubmit = event => {
     event.preventDefault();

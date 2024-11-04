@@ -7,7 +7,7 @@ import { ProductsShow } from "./ProductsShow";
 import { Modal } from "./Modal";
 
 export function ProductsIndexPage() {
-  const products = useLoaderData();
+  let products = useLoaderData();
   // const navigate = useNavigate();
   
   const [modalVisible, setModalVisible] = useState(false);
@@ -32,15 +32,12 @@ export function ProductsIndexPage() {
     handleClose();
   }
 
-  const handleSaveForLater = (params) => {
-    axios.post(`http://localhost:3000/saved_products.json`, params).then(
-
-    )
-  }
-
   const handleDestroy = (id) => {
     axios.delete(`http://localhost:3000/products/${id}.json`).then( 
-      // response => setProducts(products.filter(product => product.id !== id))
+      response => {
+        products = products.filter(product => product.id !== id)
+        handleClose();
+      }
     )
   }
 
@@ -51,7 +48,6 @@ export function ProductsIndexPage() {
         <ProductsShow
           product={currentProduct} 
           onUpdate={handleUpdate}
-          onSave={handleSaveForLater}
           onDestroy={handleDestroy}
           onClose={handleClose}
           />
